@@ -56,10 +56,10 @@ pub fn check(input: &String, v: &u32) -> bool {
             2 => fc(&t),
             3 => fd(&t),
             _ => panic!("Computed non-existent function index {}.", func_idx)
-        } % MAX_INT;
+        }.rem_euclid(MAX_INT);
     }
 
-    t = (t + f) % MAX_INT;
+    t = (t + f).rem_euclid(MAX_INT);
 
     let t_conv_u: u32 = t.to_u32().unwrap();
     t_conv_u == *v

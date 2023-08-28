@@ -6,13 +6,12 @@ fn main() {
     let hexwords: Vec<String> = construct_hexwords();
     let verification_nums: Vec<u32> = get_verification_values();
  
-    // for v in &verification_nums[1..8] { // Words 0 and 8 contain non-hex characters
-    //     for hexword in hexwords.iter() {
-    //         let mut input_is_flag_part: bool = check(hexword, v);
-    //     }
-    // }
-
-    let correct_flag = check(&("aaaa".to_string()), &verification_nums[0]);
+    for v in &verification_nums[1..8] { // Words 0 and 8 contain non-hex characters
+        for hexword in hexwords.iter() {
+            println!("Checking 32-bit hexadecimal word {}...", hexword);
+            let mut input_is_flag_part: bool = check(hexword, v);
+        }
+    }
 }
 
 fn construct_hexwords() -> Vec<String> {

@@ -39,7 +39,7 @@ fn bytes_to_int(bytes: &[u8]) -> i64 {
     ((bytes[3] as i64) <<  0)
 }
 
-pub fn check(input: &String, v: &u32) -> bool {
+pub fn check(input: &String) -> u32 {
     const MAX_INT: i64 = 4294967296;
 
     let mut t: i64 = bytes_to_int(input.as_bytes());
@@ -59,6 +59,5 @@ pub fn check(input: &String, v: &u32) -> bool {
 
     t = (t + f).rem_euclid(MAX_INT);
 
-    let t_conv_u: u32 = t.to_u32().unwrap();
-    t_conv_u == *v
+    t.to_u32().unwrap()
 }

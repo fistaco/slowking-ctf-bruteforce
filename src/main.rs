@@ -4,8 +4,8 @@ mod check;
 use check::{check, get_verification_values};
 
 fn main() {
-    let hexwords: Vec<String> = construct_hexwords();
-    
+    let hexwords: Vec<String> = construct_hexwords(false);
+
     let num_threads = 12;
     let mut thread_handles = vec![];
     let hexwords_chunks = hexwords.chunks(hexwords.len() / num_threads);
@@ -27,7 +27,6 @@ fn main() {
 /// Brute-forces the given 4-character hex word inputs for all possible verification values.
 fn bruteforce_inputs(hexwords: Vec<String>) {
     let verification_nums: Vec<u32> = get_verification_values();
-    // let hexwords: Vec<String> = construct_hexwords();
 
     for (i, hexword) in hexwords.iter().enumerate() {
         if i.rem_euclid(hexwords.len() / 10) == 0 {
@@ -45,7 +44,7 @@ fn bruteforce_inputs(hexwords: Vec<String>) {
 }
 
 /// Constructs a vector of all 16^4 = 2^16 combinations of 4-character hexadecimal strings.
-fn construct_hexwords() -> Vec<String> {
+fn construct_hexwords(for_last_subflag: bool) -> Vec<String> {
     let hex_chars: [char; 16] = [
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
     ];
@@ -56,6 +55,10 @@ fn construct_hexwords() -> Vec<String> {
         for c2 in &hex_chars {
             for c3 in &hex_chars {
                 for c4 in &hex_chars {
+                    if for_last_subflag {
+                        hexwords.push(format!("{}{}{}}}", c1, c2, c3));
+                        break;
+                    }
                     let combination = format!("{}{}{}{}", c1, c2, c3, c4);
                     hexwords.push(combination);
                 }

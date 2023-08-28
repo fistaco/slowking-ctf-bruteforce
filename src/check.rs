@@ -1,8 +1,6 @@
 use core::panic;
-use std::str::FromStr;
 
-use num_traits::{ToPrimitive, Zero};
-
+use num_traits::ToPrimitive;
 
 pub fn get_verification_values() -> Vec<u32> {
     vec![
@@ -47,7 +45,7 @@ pub fn check(input: &String, v: &u32) -> bool {
     let mut t: i64 = bytes_to_int(input.as_bytes());
     let f: i64 = t.clone();
 
-    for i in 0..13371337 {
+    for _ in 0..13371337 {
         let func_idx: i64 = t.rem_euclid(4);
 
         t = match func_idx {
